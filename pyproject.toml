@@ -27,49 +27,35 @@ classifiers = [
   "Topic :: System :: Systems Administration",
   "Topic :: Utilities",
 ]
-dependencies = [
-    "pyyaml>=6.0"
-]
-
-[project.optional-dependencies]
-dev = [
-    "pytest>=7.0",
-    "pytest-cov",
-    "black",
-    "ruff",
-    "mypy",
-    "types-PyYAML",
-]
-
-[project.scripts]
-hey-you = "hey_you.cli:main"
 
 [project.urls]
 Homepage     = "https://github.com/roebi/hey-you"
 Repository   = "https://github.com/roebi/hey-you"
 Issues       = "https://github.com/roebi/hey-you/issues"
 
+[project.scripts]
+hey-you = "hey_you.cli:main"
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/hey_you"]
 
-[tool.hatch.metadata]
-allow-direct-references = true
-
-[tool.black]
-line-length = 88
-target-version = ["py312"]
-
-[tool.ruff]
-line-length = 88
-
-[tool.ruff.lint]
-select = ["E", "F", "I", "UP"]
+[dependency-groups]
+dev = [
+  "pytest>=8.0",
+  "mypy>=1.10",
+  "ruff>=0.4",
+]
 
 [tool.mypy]
 python_version = "3.12"
 strict = true
 
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "--cov=hey_you --cov-report=term-missing"
-
