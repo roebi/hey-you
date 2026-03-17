@@ -20,10 +20,9 @@ This is the exact same pattern as a bash case dispatcher:
 import argparse
 import sys
 
-from hey_you import __version__
-from hey_you.resolve import resolve
+from hey_you import __version__, backend
 from hey_you.explain import explain
-from hey_you import backend
+from hey_you.resolve import resolve
 
 
 def cmd_repeat(args: argparse.Namespace) -> int:
@@ -79,8 +78,7 @@ def cmd_remove(args: argparse.Namespace) -> int:
     """Remove a hey-you entry by its ID (from hey-you list)."""
     ok, used_backend = backend.remove(args.id)
     if not ok:
-        print(f"hey-you: no entry with ID {args.id} (backend: {used_backend})",
-              file=sys.stderr)
+        print(f"hey-you: no entry with ID {args.id} (backend: {used_backend})", file=sys.stderr)
         return 1
     print(f"Removed entry {args.id} (backend: {used_backend})")
     return 0
@@ -94,9 +92,7 @@ def build_parser() -> argparse.ArgumentParser:
             "Translates human time expressions into cron / systemd timers."
         ),
     )
-    parser.add_argument(
-        "--version", action="version", version=f"hey-you {__version__}"
-    )
+    parser.add_argument("--version", action="version", version=f"hey-you {__version__}")
 
     sub = parser.add_subparsers(dest="subcommand", metavar="SUBCOMMAND")
     sub.required = True
@@ -117,9 +113,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_explain.add_argument("cron", help='5-field cron string e.g. "0 9 * * 1"')
 
     # resolve
-    p_resolve = sub.add_parser(
-        "resolve", help="placeholder → cron string, no write  [R]"
-    )
+    p_resolve = sub.add_parser("resolve", help="placeholder → cron string, no write  [R]")
     p_resolve.add_argument("expr", help='placeholder expression e.g. "HH>1MI<5"')
 
     # remove
@@ -135,11 +129,11 @@ def main() -> None:
 
     # dispatch — mirrors the bash case pattern exactly
     dispatch = {
-        "repeat":  cmd_repeat,
-        "list":    cmd_list,
+        "repeat": cmd_repeat,
+        "list": cmd_list,
         "explain": cmd_explain,
         "resolve": cmd_resolve,
-        "remove":  cmd_remove,
+        "remove": cmd_remove,
     }
 
     handler = dispatch[args.subcommand]

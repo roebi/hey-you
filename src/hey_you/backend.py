@@ -18,7 +18,6 @@ import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 
-
 # ── tag written into every entry so we can identify hey-you lines ─────────────
 _TAG = "# hey-you"
 
@@ -31,6 +30,7 @@ class Entry:
 
 
 # ── backend detection ─────────────────────────────────────────────────────────
+
 
 def detect_backend() -> str:
     """Return 'systemd' or 'cron' based on environment or PID 1."""
@@ -48,11 +48,9 @@ def detect_backend() -> str:
 
 # ── crontab backend ───────────────────────────────────────────────────────────
 
+
 def _crontab_read() -> list[str]:
-    result = subprocess.run(
-        ["crontab", "-l"],
-        capture_output=True, text=True
-    )
+    result = subprocess.run(["crontab", "-l"], capture_output=True, text=True)
     if result.returncode != 0:
         return []
     return result.stdout.splitlines()
@@ -93,7 +91,7 @@ def cron_list() -> list[Entry]:
 
 def cron_remove(entry_id: int) -> bool:
     lines = _crontab_read()
-    hey_you_lines = [l for l in lines if _TAG in l]
+    hey_you_lines = [line for line in lines if _TAG in line]
     if entry_id < 1 or entry_id > len(hey_you_lines):
         return False
     target = hey_you_lines[entry_id - 1]
@@ -178,8 +176,9 @@ def systemd_remove(entry_id: int) -> bool:
     service = _SYSTEMD_DIR / f"{name}.service"
     if not timer.exists():
         return False
-    subprocess.run(["systemctl", "--user", "disable", "--now", f"{name}.timer"],
-                   capture_output=True)
+    subprocess.run(
+        ["systemctl", "--user", "disable", "--now", f"{name}.timer"], capture_output=True
+    )
     timer.unlink(missing_ok=True)
     service.unlink(missing_ok=True)
     subprocess.run(["systemctl", "--user", "daemon-reload"], check=True)
@@ -198,16 +197,17 @@ def _cron_to_on_calendar(cron: str) -> str:
     mi, hh, dd, mm, dow = parts
 
     # wildcards
-    mi  = "*" if mi  == "*" else mi.zfill(2)
-    hh  = "*" if hh  == "*" else hh.zfill(2)
-    dd  = "*" if dd  == "*" else dd
-    mm  = "*" if mm  == "*" else mm
+    mi = "*" if mi == "*" else mi.zfill(2)
+    hh = "*" if hh == "*" else hh.zfill(2)
+    dd = "*" if dd == "*" else dd
+    mm = "*" if mm == "*" else mm
     dow = "*" if dow == "*" else dow
 
     return f"{dow} {mm}-{dd} {hh}:{mi}:00"
 
 
 # ── unified public interface ──────────────────────────────────────────────────
+
 
 def add(cron_expr: str, command: str) -> str:
     backend = detect_backend()

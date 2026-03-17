@@ -27,7 +27,6 @@ Examples:
 import re
 from datetime import datetime
 
-
 # 5-field cron order: minute hour day month day-of-week
 _CRON_FIELDS: list[str] = ["MI", "HH", "DD", "MM"]
 
@@ -81,9 +80,6 @@ def resolve(expr: str, now: datetime | None = None) -> str:
             value = value + delta if op[0] == ">" else value - delta
         resolved[placeholder] = value
 
-    fields = [
-        str(resolved[f]) if f in resolved else "*"
-        for f in _CRON_FIELDS
-    ]
+    fields = [str(resolved[f]) if f in resolved else "*" for f in _CRON_FIELDS]
     # append wildcard day-of-week
     return " ".join(fields) + " *"

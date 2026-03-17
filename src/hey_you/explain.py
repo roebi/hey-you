@@ -8,15 +8,29 @@ Field positions: MI HH DD MM DOW
 """
 
 DAYS_OF_WEEK = {
-    "0": "Sunday",  "7": "Sunday",
-    "1": "Monday",  "2": "Tuesday",  "3": "Wednesday",
-    "4": "Thursday","5": "Friday",   "6": "Saturday",
+    "0": "Sunday",
+    "7": "Sunday",
+    "1": "Monday",
+    "2": "Tuesday",
+    "3": "Wednesday",
+    "4": "Thursday",
+    "5": "Friday",
+    "6": "Saturday",
 }
 
 MONTHS = {
-    "1": "January",  "2": "February", "3": "March",    "4": "April",
-    "5": "May",      "6": "June",     "7": "July",     "8": "August",
-    "9": "September","10": "October", "11": "November","12": "December",
+    "1": "January",
+    "2": "February",
+    "3": "March",
+    "4": "April",
+    "5": "May",
+    "6": "June",
+    "7": "July",
+    "8": "August",
+    "9": "September",
+    "10": "October",
+    "11": "November",
+    "12": "December",
 }
 
 
@@ -35,9 +49,7 @@ def explain(cron: str) -> str:
     """
     fields = cron.strip().split()
     if len(fields) != 5:
-        raise ValueError(
-            f"Expected 5 cron fields, got {len(fields)}: {repr(cron)}"
-        )
+        raise ValueError(f"Expected 5 cron fields, got {len(fields)}: {repr(cron)}")
 
     mi, hh, dd, mm, dow = fields
 
