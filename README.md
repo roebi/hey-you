@@ -30,7 +30,7 @@ The OS owns the timer. `hey-you` is a one-shot translator and crontab/systemd ma
 ## Installation
 
 ```bash
-pipx install hey-you
+pipx install os-hey-you
 ```
 
 Requires Python ≥ 3.12.

@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "hey-you"
+name = "os-hey-you"
 version = "0.1.0"
 description = "Human-readable CRUD wrapper for recurring OS time triggers (cron / systemd)"
 readme = "README.md"
@@ -12,7 +12,7 @@ requires-python = ">=3.12"
 authors = [
   { name = "roebi", email = "roebi@users.noreply.github.com" }
 ]
-keywords = ["cron", "systemd", "scheduler", "recurring", "timer", "hey-you"]
+keywords = ["cron", "systemd", "scheduler", "recurring", "timer", "os-hey-you"]
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Environment :: Console",
