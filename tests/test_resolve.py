@@ -1,7 +1,9 @@
 """Tests for resolve.py — placeholder notation → 5-field cron string."""
 
-import pytest
 from datetime import datetime
+
+import pytest
+
 from hey_you.resolve import resolve
 
 # fixed reference datetime: 2026-03-17 16:30 UTC
