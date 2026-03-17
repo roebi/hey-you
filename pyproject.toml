@@ -1,0 +1,44 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "hey-you"
+version = "0.1.0"
+description = "Human-readable CRUD wrapper for recurring OS time triggers (cron / systemd)"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.12"
+authors = [
+  { name = "roebi", email = "roebi@users.noreply.github.com" }
+]
+keywords = ["cron", "systemd", "scheduler", "recurring", "timer", "hey-you"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Intended Audience :: System Administrators",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: POSIX :: Linux",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: System :: Systems Administration",
+  "Topic :: Utilities",
+]
+
+[project.urls]
+Homepage     = "https://github.com/roebi/hey-you"
+Repository   = "https://github.com/roebi/hey-you"
+Issues       = "https://github.com/roebi/hey-you/issues"
+
+[project.scripts]
+hey-you = "hey_you.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/hey_you"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
